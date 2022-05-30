@@ -58,7 +58,43 @@ string number_to_category(int num){
 
 }
 
+void available_categories(){
+    cout << "-Наявні категорії-" << endl
+         << "1. The first youth category" << endl
+         << "2. The second youth category" << endl
+         << "3. The third youth category" << endl
+         << "4. The first category" << endl
+         << "5. The second category" << endl
+         << "6. The third category" << endl
+         << "7. Candidate for Master of Sports of Ukraine" << endl
+         << "8. Master of Sports of Ukraine"<<endl
+         << "9. Honored Coach of Ukraine"<<endl <<endl;
+}
 
+
+
+
+int date_in_days(tm date){
+
+    int result = date.tm_year * 365 + date.tm_mon * 30.5 + date.tm_mday;
+
+    return result;
+}
+
+
+tm entering_the_date(){
+    tm date;
+    cout << "Введіть рік: " ;
+    cin >> date.tm_year;
+
+    cout << "Введіть місяць(число): " ;
+    cin >> date.tm_mon;
+
+    cout << "Введіть день місяця: " ;
+    cin >> date.tm_mday;
+
+    return date;
+}
 
 
 

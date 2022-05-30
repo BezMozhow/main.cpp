@@ -34,6 +34,7 @@ public:
 
     void output_info_about_sports_facilities(int num){
 
+
         cout << "------------------------- Споруда *" << num << "*-------------------------" << endl
                 <<"Назва споруди: " << name << endl
                 <<"Категорія: " << category << endl
@@ -41,6 +42,26 @@ public:
                 <<"Кількість сидячих мість: " << number_of_seats << endl
                 <<"Наявний буфет: " << availability_of_buffets << endl
                 <<"Наявний туалет: " << availability_of_toilets << endl;
+
+    }
+
+    void default_values_for_input(){
+
+        cout << "Введіть назву спортивної споруди" << endl;
+        cin.ignore();
+        getline(cin, name);
+
+        cout << "Введіть площу спортивної споруди" << endl;
+        cin >> area;
+
+        cout << "Введіть кількість сидячих мість" << endl;
+        cin >> number_of_seats;
+
+        cout << "Чи наявний туaлет?(Yes або No)" << endl;
+        cin >> availability_of_toilets;
+
+        cout << "Чи наявний буфет?(Yes або No)" << endl;
+        cin >> availability_of_buffets;
 
     }
 
@@ -178,37 +199,6 @@ public:
 };
 
 
-class SkiResort : public SportsFacilities{
-
-private:
-    int min_descent_length;
-    int max_descent_length;
-    int number_of_lifts;
-
-public:
-
-
-    /*Стери*/
-    void set_min_descent_length(int min_descent_length){this->min_descent_length = min_descent_length;}
-    void set_max_descent_length(int max_descent_length){this->max_descent_length = max_descent_length;}
-    void set_number_of_lifts(int number_of_lifts){this->number_of_lifts = number_of_lifts;}
-    /*Гетери*/
-    int get_min_descent_length(){return min_descent_length;}
-    int get_max_descent_length(){return max_descent_length;}
-    int get_number_of_lifts(){return number_of_lifts;}
-
-    void output_info_about_ski_resort (int num){
-
-        output_info_about_sports_facilities(num);
-
-        cout <<"Мінімальна довжина спуску: " << min_descent_length << endl
-             <<"Максимальна довжина спуску: " << max_descent_length << endl
-             <<"Кількість підйомників: " << number_of_lifts << endl;
-
-    }
-
-
-};
 
 
 
@@ -225,7 +215,8 @@ private:
     vector<string> category;
     vector<string> coaches;
     vector<string> coach_categories;
-
+    vector<string> competition;
+    vector<tm> date_of_the_competition;
 
 
 public:
@@ -234,7 +225,7 @@ public:
 
     }
 
-    Sportsman(string name, string sport_club,  vector<string> kinds_of_sport, vector<string> category, vector<string> coaches, vector<string> coach_categories){
+    Sportsman(string name, string sport_club,  vector<string> kinds_of_sport, vector<string> category, vector<string> coaches, vector<string> coach_categories, vector<string> competition, vector<tm> date_of_the_competition){
 
         set_name_of_sportsman(name);
         set_sport_club(sport_club);
@@ -244,6 +235,12 @@ public:
             set_category(category[i]);
             set_coaches(coaches[i]);
             set_coach_categories(coach_categories[i]);
+
+        }
+
+        for (int i = 0; i < competition.size(); ++i) {
+            set_competition(competition[i]);
+            set_date_of_the_competition(date_of_the_competition[i]);
 
         }
 
@@ -260,7 +257,11 @@ public:
     void set_category( string category){this->category.push_back(category);}
     void set_coaches(string coaches){this->coaches.push_back(coaches);}
     void set_coach_categories(string coach_categories){this->coach_categories.push_back(coach_categories);}
-/*Гетери*/
+    void set_competition(string competition){this->competition.push_back(competition);}
+    void set_date_of_the_competition(tm date_of_the_competition){this->date_of_the_competition.push_back(date_of_the_competition);}
+
+
+    /*Гетери*/
 
     string get_name(){return name;}
     string get_sport_club(){return sport_club;}
@@ -268,10 +269,8 @@ public:
     vector<string> get_category(){return category;}
     vector<string> get_coaches(){return coaches;}
     vector<string> get_coach_categories(){return coach_categories;}
-
-
-
-
+    vector<string> get_competition(){return competition;}
+    vector<tm> get_date_of_the_competition(){return date_of_the_competition;}
 
     void output_info_about_sportsman(int i=0){
 
@@ -287,10 +286,100 @@ public:
                  << "-Категорія тренера : " << coach_categories[j] << endl;
 
         }
+
+
+        for (int j = 0; j < competition.size(); ++j) {
+            cout << "```````````````````````````````````````````````````````````````````````````" << endl;
+            cout << "Змагання " << j + 1 << "   "<< competition[j] << ":           " << "дата проведення: "<< date_of_the_competition[j].tm_mday << "/" <<date_of_the_competition[j].tm_mon + 1 << "/" << date_of_the_competition[j].tm_year <<endl ;
+       }
         cout << endl;
     }
 
+    void change_category(string category, int index){this->category[index] = category;}
+    void change_coaches(string coaches, int index){this->coaches[index] = coaches;}
 };
+
+
+
+
+
+class Competition{
+private:
+
+    string name, venue, organizer, kind_of_sport;
+    vector<string> winners, participants;
+    tm date_of_the_event;
+
+public:
+
+    Competition(){}
+
+    Competition(string name, string venue, string organizer, string kind_of_sport, vector<string> winners, vector<string> participants, tm date_of_the_event){
+        this-> name = name;
+        this->venue = venue;
+        this->organizer = organizer;
+        this->kind_of_sport = kind_of_sport;
+        this->winners = winners;
+        this->participants = participants;
+        this->date_of_the_event = date_of_the_event;
+    }
+
+
+
+    /*Сетери*/
+    void set_name(string name){this->name = name;}
+    void set_venue(string venue){this->venue = venue;}
+    void set_organizer(string organizer){this->organizer = organizer;}
+    void set_winners( string winners){this->winners.push_back(winners);}
+    void set_participants(string participants){this->participants.push_back(participants);}
+    void set_date_of_the_event(tm date_of_the_event){this->date_of_the_event = date_of_the_event;}
+
+    /*Гетери*/
+
+    string get_name(){return name;}
+    string get_venue(){return venue;}
+    string get_organizer(){return organizer;}
+    string get_kind_of_sport(){return kind_of_sport;}
+    vector<string> get_winners(){return winners;}
+    vector<string> get_participants(){return participants;}
+    tm get_date_of_the_event(){return date_of_the_event;}
+
+
+    void output_info_about_competition(int i=0){
+        cout << "-----------------------------Змагання *"<< i + 1 << "*--------------------------------" << endl ;
+        cout << "-Назва події:" <<name << endl;
+        cout << "~~Місце проведення: " << venue << endl;
+        cout << "-Дата проведення: " << date_of_the_event.tm_mday << "/" <<date_of_the_event.tm_mon + 1 << "/" << date_of_the_event.tm_year <<endl ;
+        cout << "~~Організатор: " << organizer << endl;
+        cout << "-Вид спорут з якого проводилося змагання: " << kind_of_sport << endl;
+
+        cout<< "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"<<endl;
+        cout << "|Переможці|" << endl;
+        for (int j = 0; j < winners.size(); ++j) {
+
+            cout <<"--" << j << ": " << winners[j] << endl;
+        }
+        cout<< "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"<<endl;
+        cout << "|Учасники|" << endl;
+        for (int j = 0; j < participants.size(); ++j) {
+
+            cout <<"--" << j << ": " << participants[j] << endl;
+        }
+
+
+
+
+    };
+
+};
+
+
+
+
+
+
+
+
 
 
 

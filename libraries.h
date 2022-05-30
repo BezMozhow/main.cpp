@@ -7,6 +7,7 @@
 
 #include <math.h>
 #include <iostream>
+#include <iomanip>
 #include <string>
 #include <windows.h>
 #include <vector>
