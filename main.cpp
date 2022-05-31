@@ -3,9 +3,13 @@
 #include "classes.h"
 
 vector<Sportsman> athletes_database;
+
 vector<Pool> pool_database;
+
 vector<TennisCourt> tennis_court_database;
+
 vector<ShootingGallery> shooting_gallery_database;
+
 vector<FootballField> football_field_database;
 
 vector<Competition> competition_database;
@@ -151,7 +155,8 @@ int main() {
     while (selected_number_in_menu != 0){
 
 
-        cout << endl << "Меню" << endl
+        cout << endl << "|*|*|Ласкаво просимов в базу спортивних спортивних організацій нашого міста|*|*|" << endl
+             <<"Меню" << endl
              << "1. Спортсмени" << endl
              << "2. Спортивні споруди" << endl
              << "3. Спортивні події" << endl
